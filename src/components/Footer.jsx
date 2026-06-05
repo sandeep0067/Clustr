@@ -10,7 +10,7 @@ function useInView(threshold = 0.15) {
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [threshold]);
   return [ref, inView];
 }
 
@@ -100,7 +100,8 @@ export default function Footer() {
   };
 
   return (
-    <footer 
+    <footer
+      id="section-cta"
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{ 

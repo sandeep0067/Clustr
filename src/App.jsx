@@ -20,22 +20,28 @@ const SECTIONS = [
   { id: "section-cta", label: "Start" },
 ];
 
+function getStoredAuthUser() {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const storedUser = window.localStorage.getItem("clustr:current-user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  } catch {
+    return null;
+  }
+}
+
 export default function App() {
+  const configuredClustrUrl = import.meta.env.VITE_CLUSTR_URL?.replace(/\/$/, "");
   const clustrAuthUrl =
-    import.meta.env.VITE_CLUSTR_URL?.replace(/\/$/, "")?.concat("/auth") || "http://localhost:5174/auth";
+    configuredClustrUrl?.concat("/auth") ||
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5174/auth"
+      : "");
   const [showBottomNav, setShowBottomNav] = useState(false);
   const [activeSection, setActiveSection] = useState("section-hero");
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setAuthUser] = useState(getStoredAuthUser);
   const [authReady] = useState(true);
-
-  useEffect(() => {
-    try {
-      const storedUser = window.localStorage.getItem("clustr:current-user");
-      setAuthUser(storedUser ? JSON.parse(storedUser) : null);
-    } catch {
-      setAuthUser(null);
-    }
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -75,7 +81,12 @@ export default function App() {
 
   const handleOpenAuth = () => {
     if (typeof window !== "undefined") {
-      window.location.href = clustrAuthUrl;
+      if (clustrAuthUrl) {
+        window.location.href = clustrAuthUrl;
+        return;
+      }
+
+      scrollToId("section-cta");
     }
   };
 
