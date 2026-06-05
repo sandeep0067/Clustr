@@ -36,3 +36,5 @@ VITE_API_URL=https://your-api.example.com
 ```
 
 If `VITE_CLUSTR_URL` is not set in production, the login button scrolls to the page CTA instead of redirecting to a local development URL.
+
+The app is a single-page landing page and does not require a `_redirects` fallback for Cloudflare Workers/Pages deployment.
