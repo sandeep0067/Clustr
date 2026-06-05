@@ -20,6 +20,8 @@ const SECTIONS = [
   { id: "section-cta", label: "Start" },
 ];
 
+const DEFAULT_CLUSTR_URL = "https://clustr-6kk9.onrender.com";
+
 function getStoredAuthUser() {
   if (typeof window === "undefined") return null;
 
@@ -33,11 +35,7 @@ function getStoredAuthUser() {
 
 export default function App() {
   const configuredClustrUrl = import.meta.env.VITE_CLUSTR_URL?.replace(/\/$/, "");
-  const clustrAuthUrl =
-    configuredClustrUrl?.concat("/auth") ||
-    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-      ? "http://localhost:5174/auth"
-      : "");
+  const clustrAuthUrl = configuredClustrUrl || DEFAULT_CLUSTR_URL;
   const [showBottomNav, setShowBottomNav] = useState(false);
   const [activeSection, setActiveSection] = useState("section-hero");
   const [authUser, setAuthUser] = useState(getStoredAuthUser);
@@ -116,7 +114,7 @@ export default function App() {
           onLogout={handleLogout}
         />
         <Hero />
-        <Learn />
+        <Learn onSignup={handleOpenAuth} />
         <GlobalLearners />
         <OurMission />
         <Footer />

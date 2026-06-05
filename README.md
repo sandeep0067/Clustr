@@ -31,10 +31,10 @@ Node.js version: 22.12.0
 Optional environment variables:
 
 ```txt
-VITE_CLUSTR_URL=https://your-auth-app.example.com
+VITE_CLUSTR_URL=https://clustr-6kk9.onrender.com
 VITE_API_URL=https://your-api.example.com
 ```
 
-If `VITE_CLUSTR_URL` is not set in production, the login button scrolls to the page CTA instead of redirecting to a local development URL.
+If `VITE_CLUSTR_URL` is not set, login and signup actions use `https://clustr-6kk9.onrender.com`.
 
 The app is a single-page landing page and does not require a `_redirects` fallback for Cloudflare Workers/Pages deployment.

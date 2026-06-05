@@ -82,7 +82,7 @@ function ProgressBar({ label, pct, color, delay, inView }) {
   );
 }
 
-export default function Learn() {
+export default function Learn({ onSignup }) {
   const [sectionRef, inView] = useInView(0.15);
 
   return (
@@ -179,6 +179,8 @@ export default function Learn() {
             </div>
 
             <button
+              type="button"
+              onClick={onSignup}
               className="flex items-center gap-2 bg-lime-400 hover:bg-lime-300 text-black font-bold text-sm px-6 py-3.5 rounded-full transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
