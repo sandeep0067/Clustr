@@ -1,4 +1,4 @@
-# Clustr
+# Clustr-Where Skills Connect
 
 Clustr is a Vite + React frontend for a skill exchange landing experience.
 
